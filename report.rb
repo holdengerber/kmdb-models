@@ -12,9 +12,9 @@ Studio.create({ "name" => "Warner Bros." })
 warner = Studio.find_by({ "name" => "Warner Bros." })
 
 # Movies
-Movie.create({ "title" => "Batman Begins", "year_released" => 2005, "rated" => "PG-13", "studio_id" => warner["id"] })
-Movie.create({ "title" => "The Dark Knight", "year_released" => 2008, "rated" => "PG-13", "studio_id" => warner["id"] })
-Movie.create({ "title" => "The Dark Knight Rises", "year_released" => 2012, "rated" => "PG-13", "studio_id" => warner["id"] })
+Movie.create({ "title" => "Batman Begins", "year_released" => 2005, "rated" => "PG-13", "studio_id" => warner["id"], "director" => "Christopher Nolan" })
+Movie.create({ "title" => "The Dark Knight", "year_released" => 2008, "rated" => "PG-13", "studio_id" => warner["id"], "director" => "Christopher Nolan" })
+Movie.create({ "title" => "The Dark Knight Rises", "year_released" => 2012, "rated" => "PG-13", "studio_id" => warner["id"], "director" => "Christopher Nolan" })
 
 # Actors (DONE.md requires a birth date, which "The data" doesn't give)
 Actor.create({ "name" => "Christian Bale", "birth_date" => "1974-01-30" })
@@ -70,7 +70,7 @@ puts ""
 movies = Movie.order("year_released")
 for movie in movies
   studio = Studio.find_by({ "id" => movie["studio_id"] })
-  puts "#{movie["title"].ljust(23)}#{movie["year_released"].to_s.ljust(15)}#{movie["rated"].ljust(7)}#{studio["name"]}"
+  puts "#{movie["title"].ljust(23)}#{movie["year_released"].to_s.ljust(15)}#{movie["rated"].ljust(7)}#{studio["name"].ljust(14)}#{movie["director"]}"
 end
 
 # Top Cast report

@@ -17,3 +17,9 @@ When a new rule arrives and tests you already had go red: which ones failed, and
 empty until that happens.
 
 None of the tests I already had failed when a director became required, because the agent added a director to the movies built in `movie_test.rb` and `role_test.rb` at the same time it wrote the new tests, before the rule was added.
+
+All tests stayed green after the director rule, but `report.rb` crashed because its three movies had no director and silently failed to save. No test covers the report, so the tests didn't catch it. The agent added the director to each movie in `report.rb`.
+
+## General notes
+
+I asked for a director column in the Movies report, so `report.rb` now prints each movie's director after the studio. This is on purpose: the Movies output has one more column than the example in the README, but the rows and their order are the same.
