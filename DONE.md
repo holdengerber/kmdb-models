@@ -30,8 +30,8 @@ There can’t be more than one actor with the same name and birth date.
 
 ## Role
 Every role must have a character name.
-Every role must have a movie.
-Every role must have an actor.
+Every role must have a movie from the movie table.
+Every role must have an actor from the actor table.
 There can't be more than one role with the same character name and movie.
 You can find every role in a movie.
 You can find every role by an actor.

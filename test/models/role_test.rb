@@ -25,16 +25,32 @@ class RoleTest < ActiveSupport::TestCase
     assert_not role.save
   end
 
-  test "Every role must have a movie." do
-    role = new_role
-    role["movie_id"] = nil
-    assert_not role.save
+  test "Every role must have a movie from the movie table." do
+    gone = Movie.create({ "title" => "Deleted Movie", "year_released" => 2000, "rated" => "R", "studio_id" => @batman_begins["studio_id"] })
+    gone_id = gone["id"]
+    gone.destroy
+
+    missing = new_role
+    missing["movie_id"] = nil
+    assert_not missing.save
+
+    unknown = new_role
+    unknown["movie_id"] = gone_id
+    assert_not unknown.save
   end
 
-  test "Every role must have an actor." do
-    role = new_role
-    role["actor_id"] = nil
-    assert_not role.save
+  test "Every role must have an actor from the actor table." do
+    gone = Actor.create({ "name" => "Deleted Actor", "birth_date" => Date.new(1980, 1, 1) })
+    gone_id = gone["id"]
+    gone.destroy
+
+    missing = new_role
+    missing["actor_id"] = nil
+    assert_not missing.save
+
+    unknown = new_role
+    unknown["actor_id"] = gone_id
+    assert_not unknown.save
   end
 
   test "There can't be more than one role with the same character name and movie." do
