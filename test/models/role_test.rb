@@ -4,8 +4,8 @@ class RoleTest < ActiveSupport::TestCase
   setup do
     Studio.create({ "name" => "Warner Bros." })
     studio = Studio.find_by({ "name" => "Warner Bros." })
-    Movie.create({ "title" => "Batman Begins", "year_released" => 2005, "rated" => "PG-13", "studio_id" => studio["id"] })
-    Movie.create({ "title" => "The Dark Knight", "year_released" => 2008, "rated" => "PG-13", "studio_id" => studio["id"] })
+    Movie.create({ "title" => "Batman Begins", "year_released" => 2005, "rated" => "PG-13", "studio_id" => studio["id"], "director" => "Christopher Nolan" })
+    Movie.create({ "title" => "The Dark Knight", "year_released" => 2008, "rated" => "PG-13", "studio_id" => studio["id"], "director" => "Christopher Nolan" })
     Actor.create({ "name" => "Christian Bale", "birth_date" => Date.new(1974, 1, 30) })
     Actor.create({ "name" => "Michael Caine", "birth_date" => Date.new(1933, 3, 14) })
 
@@ -26,7 +26,7 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "Every role must have a movie from the movie table." do
-    gone = Movie.create({ "title" => "Deleted Movie", "year_released" => 2000, "rated" => "R", "studio_id" => @batman_begins["studio_id"] })
+    gone = Movie.create({ "title" => "Deleted Movie", "year_released" => 2000, "rated" => "R", "studio_id" => @batman_begins["studio_id"], "director" => "Nobody" })
     gone_id = gone["id"]
     gone.destroy
 

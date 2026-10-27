@@ -18,9 +18,11 @@ Every movie must have a title.
 Every movie must have a year.
 Every movie must have a rating.
 Every movie must have a studio from studio table.
+Every movie must have a director.
 There can’t be more than one movie with the same id.
 There can’t be more than one movie with the same title and year and studio.
 Find every movie a studio has made.
+Find every movie a director has made.
 
 ## Actor
 Every actor must have a name.

@@ -3,6 +3,7 @@ class Movie < ApplicationRecord
   validates :year_released, presence: true
   validates :rated, presence: true
   validates :studio_id, presence: true
+  validates :director, presence: true
   validate :studio_must_exist
 
   def studio_must_exist

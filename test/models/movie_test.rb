@@ -11,7 +11,8 @@ class MovieTest < ActiveSupport::TestCase
       "title" => "Batman Begins",
       "year_released" => 2005,
       "rated" => "PG-13",
-      "studio_id" => @studio["id"]
+      "studio_id" => @studio["id"],
+      "director" => "Christopher Nolan"
     })
   end
 
@@ -47,6 +48,12 @@ class MovieTest < ActiveSupport::TestCase
     assert_not unknown.save
   end
 
+  test "Every movie must have a director." do
+    movie = new_movie
+    movie["director"] = nil
+    assert_not movie.save
+  end
+
   test "There can’t be more than one movie with the same id." do
     first = new_movie
     first.save
@@ -70,9 +77,21 @@ class MovieTest < ActiveSupport::TestCase
     dark_knight["title"] = "The Dark Knight"
     dark_knight["year_released"] = 2008
     dark_knight.save
-    Movie.create({ "title" => "Interstellar", "year_released" => 2014, "rated" => "PG-13", "studio_id" => paramount["id"] })
+    Movie.create({ "title" => "Interstellar", "year_released" => 2014, "rated" => "PG-13", "studio_id" => paramount["id"], "director" => "Christopher Nolan" })
 
     movies = Movie.where({ "studio_id" => @studio["id"] })
+    assert_equal ["Batman Begins", "The Dark Knight"], movies.map { |movie| movie["title"] }.sort
+  end
+
+  test "Find every movie a director has made." do
+    new_movie.save
+    dark_knight = new_movie
+    dark_knight["title"] = "The Dark Knight"
+    dark_knight["year_released"] = 2008
+    dark_knight.save
+    Movie.create({ "title" => "Joker", "year_released" => 2019, "rated" => "R", "studio_id" => @studio["id"], "director" => "Todd Phillips" })
+
+    movies = Movie.where({ "director" => "Christopher Nolan" })
     assert_equal ["Batman Begins", "The Dark Knight"], movies.map { |movie| movie["title"] }.sort
   end
 end
